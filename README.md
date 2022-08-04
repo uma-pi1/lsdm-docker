@@ -7,7 +7,7 @@ This environment contains:
 - Hadoop
 - Jupyterlab with PySpark
 
-This environment is based on [this repository]().
+This environment is based on [this repository](https://github.com/big-data-europe/docker-hadoop).
 
 ## Table of contents
 
@@ -71,6 +71,7 @@ You can also install docker using apt-get. Please follow the official instuction
 
 
 ## 2. Setup
+### Clone this Repository
 Clone this repository and go into the root directory of the repository.
 
 ```
@@ -79,8 +80,16 @@ cd lsdm-docker
 ```
 
 
+
+### Create a Docker Network
+Create a docker network to simplify the communication between the containers. You only need to do this once.
+```
+docker network create hbase
+```
+
+
+### Pull and Start the Docker Containers
 With an installed Docker environment and a started engine you can now run the Docker containers.
-Run the command.
 
 **Note: The first time you are running this command it will take some time depending on your notebook and internet connection.**
 **So feel free to grab some coffee.**
@@ -95,7 +104,7 @@ docker-compose up -d
 ## 3. phpMyAdmin
 With a successful setup you should be able to access phpMyAdmin here:
 
-[localhost:8080](localhost:8080)
+[http://localhost:8080](http://localhost:8080)
 
 ## 4. MySQL
 You can connect to the database via localhost:3308
@@ -138,13 +147,13 @@ hadoop jar <jar file>
 ### Hadoop UI
 You can access the Hadoop UI on
 
-[localhost:9870](localhost:9870)
+[http://localhost:9870](http://localhost:9870)
 
 
 ## 7. PySpark Notebook
 You can access JupyterLab on
 
-[localhost:8888](localhost:8888)
+[http://localhost:8888](http://localhost:8888)
 
 Here you can run any Python code you want.
 But most importantly you can use PySpark and connect to the HDFS.
