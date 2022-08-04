@@ -58,13 +58,16 @@ services:
   mysqldb:
     image: mysql
     restart: always
+    container_name: mysqldb
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: test_db
     ports:
       - "3308:3306"
+
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin
     restart: always
     environment:
       PMA_HOST: mysqldb
@@ -72,12 +75,10 @@ services:
       PMA_PASSWORD: root
     ports:
       - "8080:80"
-        #pyspark:
-        #build: .
-        #ports:
-        #- "8888:8888"
+ 
   mongodb:
     image: 'mongo'
+    container_name: mongodb
     restart: always
     environment:
       - MONGO_INITDB_DATABASE=test_db
@@ -85,9 +86,10 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=root
     ports:
       - '27017-27019:27017-27019'
+
   pysparkjupyter:
     image: jupyter/pyspark-notebook
-        #build: .
+    container_name: pysparkjupyter
     ports:
       - "8888:8888"
     environment:
