@@ -81,10 +81,11 @@ cd lsdm-docker
 
 With an installed Docker environment and a started engine you can now run the Docker containers.
 Run the command.
+
 **Note: The first time you are running this command it will take some time depending on your notebook and internet connection.**
 **So feel free to grab some coffee.**
 
-**It will only take that long the first time you run this command. All following start-ups should be quick.
+**It will only take that long the first time you run this command. All following start-ups should be quick.**
 
 ```
 docker-compose up -d
