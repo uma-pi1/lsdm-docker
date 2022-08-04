@@ -54,6 +54,12 @@ Furthermore, you can limit the amount of processors used by `processors=1`.
 On Windows you always need to start Docker first manually.
 Open Docker Desktop and click the little Docker icon in the bottom left corner to start the engine.
 
+### Docker Installation - Mac
+
+To use Docker on Mac install the Docker Desktop.
+You can find the download link and corresponding installation instructions [here](https://docs.docker.com/desktop/install/mac-install/).
+
+[https://docs.docker.com/desktop/install/mac-install/](https://docs.docker.com/desktop/install/mac-install/)
 
 
 ### Docker Installation - Linux
