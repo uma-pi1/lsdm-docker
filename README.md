@@ -113,7 +113,7 @@ With a successful setup you should be able to access phpMyAdmin here:
 [http://localhost:8080](http://localhost:8080)
 
 ## 4. MySQL
-You can connect to the database via localhost:3308
+You can connect to the database via mysqldb:3306
 
 username: root
 
@@ -123,7 +123,7 @@ password: root
 You can access the database via the container name instead of localhost: `mysqldb:3308`
 
 ## 5. MongoDB
-You can connect to the database on `mongodb://root:root@localhost:27017/
+You can connect to the database on `mongodb://root:root@mongodb:27017/
 
 ## 6. Hadoop
 You can copy files to the namenode via
