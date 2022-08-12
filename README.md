@@ -113,14 +113,19 @@ With a successful setup you should be able to access phpMyAdmin here:
 [http://localhost:8080](http://localhost:8080)
 
 ## 4. MySQL
-You can connect to the database via `localhost:3306`
+From your local machine you can connect to the database via `localhost:3308` or via `mysqldb:3306`.
 
 username: root
 
 password: root
 
+Note: The connection port differs as we use the port forwarding to the local machine with `localhost:3308` and connect directly to the container with `mysqldb:3306`. 
+In the container the database is hosted on port 3306.
+The port forwarded to 3308, as port 3306 might already be blocked on your local machine.
+
 ### Accessing the DB from the PySpark Notebook
-You can access the database via the container name instead of localhost: `mysqldb:3306`
+You can access the database via the container name `mysqldb:3306` or via `your_ip_address:3306`.
+The connection via localhost does not work here, as the notebook is hosted in a separate container.
 
 ## 5. MongoDB
 You can connect to the database on `mongodb://root:root@mongodb:27017/
