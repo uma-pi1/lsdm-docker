@@ -1,11 +1,11 @@
-# Docker Setup for the Course Large-Scale Data Management 
-This is a docker environment for the exercises of the course "Large-Scale Data Management (LSDM)".
-This environment contains:
+# Docker Setup for the Course "Large-Scale Data Management"
+
+This is a docker environment for the exercises of the course "Large-Scale Data Management (LSDM)".  This environment contains:
 - MySQL database
 - phpMyAdmin
-- MongoDB
 - Hadoop
 - Jupyterlab with PySpark
+- MongoDB
 
 This environment is based on [this repository](https://github.com/big-data-europe/docker-hadoop).
 
@@ -81,17 +81,10 @@ You can also install docker using apt-get. Please follow the official instuction
 Clone this repository and go into the root directory of the repository.
 
 ```
-git clone https://github.com/AdrianKs/lsdm-docker
+git clone https://github.com/uma-pi1/lsdm-docker
 cd lsdm-docker
 ```
 
-
-
-### Create a Docker Network
-Create a docker network to simplify the communication between the containers. You only need to do this once.
-```
-docker network create hbase
-```
 
 
 ### Pull and Start the Docker Containers
@@ -103,14 +96,14 @@ With an installed Docker environment and a started engine you can now run the Do
 **It will only take that long the first time you run this command. All following start-ups should be quick.**
 
 ```
-docker-compose up -d
+docker compose up -d
 ```
 
 
 ## 3. phpMyAdmin
 With a successful setup you should be able to access phpMyAdmin here:
 
-[http://localhost:8080](http://localhost:8080)
+[http://localhost:8081](http://localhost:8081)
 
 ## 4. MySQL
 From your local machine you can connect to the database via `localhost:3308` or via `mysqldb:3306`.
@@ -119,9 +112,7 @@ username: root
 
 password: root
 
-Note: The connection port differs as we use the port forwarding to the local machine with `localhost:3308` and connect directly to the container with `mysqldb:3306`. 
-In the container the database is hosted on port 3306.
-The port forwarded to 3308, as port 3306 might already be blocked on your local machine.
+Note: The connection port differs as we use port forwarding to connect from the local machine (`localhost:3308`) directly to the container (`mysqldb:3306`). I.e., the database is hosted on port 3306 in the container but port 3308 in your local machine. This is done because port 3306 might already be in use on your machine.
 
 ### Accessing the DB from the PySpark Notebook
 You can access the database via the container name `mysqldb:3306` or via `your_ip_address:3306`.
@@ -167,7 +158,9 @@ You can access the Hadoop UI on
 ## 7. PySpark Notebook
 You can access JupyterLab on
 
-[http://localhost:8888](http://localhost:8888)
+[http://localhost:8889](http://localhost:8889)
+
+**If you see a prompt asking you for a token or password type `lsdm`.**
 
 Here you can run any Python code you want.
 But most importantly you can use PySpark and connect to the HDFS.
