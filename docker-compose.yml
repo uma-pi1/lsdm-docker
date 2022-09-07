@@ -11,7 +11,7 @@ services:
     volumes:
       - hadoop_namenode:/hadoop/dfs/name
     environment:
-      - CLUSTER_NAME=test
+      - CLUSTER_NAME=lsdm
     env_file:
       - ./hadoop.env
 
@@ -74,7 +74,7 @@ services:
       PMA_USER: root
       PMA_PASSWORD: root
     ports:
-      - "8080:80"
+      - "8081:80"
  
   mongodb:
     image: 'mongo'
@@ -91,10 +91,10 @@ services:
     image: jupyter/pyspark-notebook
     container_name: pysparkjupyter
     ports:
-      - "8888:8888"
+      - "8889:8888"
     environment:
-      - PASSWORD=lsdm22
-      - JUPYTER_TOKEN=lsdm22
+      - PASSWORD=lsdm
+      - JUPYTER_TOKEN=lsdm
 
 volumes:
   hadoop_namenode:
