@@ -88,13 +88,16 @@ services:
       - '27017-27019:27017-27019'
 
   pysparkjupyter:
-    image: jupyter/pyspark-notebook
+    build: ./spark-notebook
     container_name: pysparkjupyter
     ports:
       - "8889:8888"
+    volumes:
+      - ./code:/home/jovyan
     environment:
       - PASSWORD=lsdm
       - JUPYTER_TOKEN=lsdm
+
 
 volumes:
   hadoop_namenode:

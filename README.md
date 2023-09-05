@@ -176,3 +176,8 @@ hello_world_rdd = spark.sparkContext.textFile("hdfs://namenode:9000/helloWorld/h
 
 hello_world_rdd.collect()
 ```
+
+### 7.1 Transfer Between Host and Notebook
+
+All files placed in the folder `./code` will directly appear in your jupyter lab environment.
+Vice versa, notebooks created in jupyter lab will directly be stored in the folder `./code` on your machine
