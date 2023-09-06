@@ -64,6 +64,8 @@ services:
       MYSQL_DATABASE: test_db
     ports:
       - "3308:3306"
+    volumes:
+      - ./mysql_shared:/mysql_shared
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
@@ -88,13 +90,16 @@ services:
       - '27017-27019:27017-27019'
 
   pysparkjupyter:
-    image: jupyter/pyspark-notebook
+    build: ./spark-notebook
     container_name: pysparkjupyter
     ports:
       - "8889:8888"
+    volumes:
+      - ./shared:/home/jovyan
     environment:
       - PASSWORD=lsdm
       - JUPYTER_TOKEN=lsdm
+
 
 volumes:
   hadoop_namenode:

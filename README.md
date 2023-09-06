@@ -4,7 +4,7 @@ This is a docker environment for the exercises of the course "Large-Scale Data M
 - MySQL database
 - phpMyAdmin
 - Hadoop
-- Jupyterlab with PySpark
+- Jupyterlab with PySpark and Beam
 - MongoDB
 
 This environment is based on [this repository](https://github.com/big-data-europe/docker-hadoop).
@@ -176,3 +176,15 @@ hello_world_rdd = spark.sparkContext.textFile("hdfs://namenode:9000/helloWorld/h
 
 hello_world_rdd.collect()
 ```
+
+### 7.1 Transfer Between Host and Notebook
+
+All files placed in the folder `./shared` located in the root directory of this repository on your host machine will directly appear in your jupyter lab environment.
+Vice versa, notebooks created in jupyter lab will directly be stored in the folder `./shared` on your host machine
+
+### 7.2 Misc
+
+The default user name in JupyterLab is `jovyan`.
+
+*""Jovyan is often a special term used to describe members of the Jupyter community. It is also used as the user ID in the Jupyter Docker stacks or referenced in conversations."*
+For more information see [here](https://jupyter-docker-stacks.readthedocs.io/en/latest/using/faq.html#who-is-jovyan).
