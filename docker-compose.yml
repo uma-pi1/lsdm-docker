@@ -65,7 +65,7 @@ services:
     ports:
       - "3308:3306"
     volumes:
-      - ./mysql_data:/mysql_data
+      - ./mysql_shared:/mysql_shared
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
@@ -95,7 +95,7 @@ services:
     ports:
       - "8889:8888"
     volumes:
-      - ./code:/home/jovyan
+      - ./shared:/home/jovyan
     environment:
       - PASSWORD=lsdm
       - JUPYTER_TOKEN=lsdm
