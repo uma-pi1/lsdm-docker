@@ -94,11 +94,12 @@ services:
     container_name: pysparkjupyter
     ports:
       - "8889:8888"
-    #volumes:
-    #  - ./shared:/home/jovyan
+    volumes:
+      - ./shared:/home/jovyan
     environment:
       - PASSWORD=lsdm
       - JUPYTER_TOKEN=lsdm
+      - JUPYTER_ALLOW_INSECURE_WRITES=true
 
 
 volumes:
