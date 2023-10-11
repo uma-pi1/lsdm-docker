@@ -8,5 +8,14 @@ USER root
 
 RUN apt-get update
 RUN apt-get -y install vim
+RUN pip install --upgrade spylon-kernel
+RUN python -m spylon_kernel install
+
+
+RUN wget https://github.com/SpencerPark/IJava/releases/download/v1.3.0/ijava-1.3.0.zip
+RUN unzip ijava-1.3.0.zip -d ijava
+RUN cd ijava; python install.py --sys-prefix
+RUN cd ..
+
 
 USER ${NB_UID}
