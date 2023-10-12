@@ -94,6 +94,7 @@ services:
     container_name: pysparkjupyter
     ports:
       - "8889:8888"
+      - "4040-4049:4040-4049"
     volumes:
       - ./shared:/home/jovyan
     environment:
