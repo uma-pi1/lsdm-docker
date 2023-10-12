@@ -99,6 +99,7 @@ services:
     environment:
       - PASSWORD=lsdm
       - JUPYTER_TOKEN=lsdm
+      - IJAVA_CLASSPATH=/usr/local/spark/jars/*
 
 
 volumes:
