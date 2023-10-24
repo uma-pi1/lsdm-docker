@@ -63,8 +63,22 @@ You can find the download link and corresponding installation instructions [here
 
 
 ### Docker Installation - Linux
+On Linux you have multiple installation options.
+
+#### Installation using convenience script
+Docker provides a useful conveniece script to install the engine with the following commands.
+
+```
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh ./get-docker.sh
+```
+
+For more information see [here](https://docs.docker.com/engine/install/ubuntu/#install-using-the-convenience-script).
+
 #### Installation using Snap
-You can install docker using a single command on Ubuntu using Snap:
+You can install docker using a single command on Ubuntu using Snap.
+Note: the version provided by snap can be an older one.
+We recommend using the convenience script instead.
 
 ```
 sudo snap install docker
