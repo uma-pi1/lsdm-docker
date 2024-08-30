@@ -3,9 +3,9 @@
 This is a docker environment for the exercises of the course "Large-Scale Data Management (LSDM)".  This environment contains:
 - MySQL database
 - phpMyAdmin
-- Hadoop
 - Jupyterlab with PySpark and Beam
 - MongoDB
+- ~~Hadoop~~ (currently commented out)
 
 This environment is based on [this repository](https://github.com/big-data-europe/docker-hadoop).
 
@@ -16,11 +16,11 @@ This environment is based on [this repository](https://github.com/big-data-europ
 3. [phpMyAdmin](#3-phpmyadmin)
 4. [MySQL](#4-mysql)
 5. [MongoDB](#5-mongodb)
-6. [Hadoop](#6-hadoop)
-7. [PySpark Notebook](#7-pyspark-notebook)
+6. [PySpark Notebook](#6-pyspark-notebook)
+7. [Hadoop](#7-hadoop)
 
 ## 1. Install Docker
-Before starting the local development environment, you need to install Docker.
+Before starting the local development environment, you need to install Docker (and docker-compose).
 
 ### Docker Installation - Windows
 To use Docker on Windows install the Docker Desktop.
@@ -135,7 +135,46 @@ The connection via localhost does not work here, as the notebook is hosted in a 
 ## 5. MongoDB
 You can connect to the database on `mongodb://root:root@mongodb:27017/
 
-## 6. Hadoop
+## 6. PySpark Notebook
+You can access JupyterLab on
+
+[http://localhost:8889](http://localhost:8889)
+
+**If you see a prompt asking you for a token or password type `lsdm`.**
+
+Here you can run any Python code you want.
+But most importantly you can use PySpark and connect to the HDFS.
+
+
+```python
+import pyspark
+from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.master("local").appName("hdfs_test").getOrCreate()
+
+hello_world_rdd = spark.sparkContext.textFile("hdfs://namenode:9000/helloWorld/hello.txt")
+
+hello_world_rdd.collect()
+```
+
+### 6.1 Transfer Between Host and Notebook
+
+All files placed in the folder `./shared` located in the root directory of this repository on your host machine will directly appear in your jupyter lab environment.
+Vice versa, notebooks created in jupyter lab will directly be stored in the folder `./shared` on your host machine
+
+### 6.2 Misc
+
+The default user name in JupyterLab is `jovyan`.
+
+*""Jovyan is often a special term used to describe members of the Jupyter community. It is also used as the user ID in the Jupyter Docker stacks or referenced in conversations."*
+For more information see [here](https://jupyter-docker-stacks.readthedocs.io/en/latest/using/faq.html#who-is-jovyan).
+
+
+## 7. Hadoop
+
+**N.B.:** Hadoop's dependencies are commented out in the `docker-compose.yml` file. Hence, you need to uncomment
+the respective lines in the file and reinitialize the containers before being able to use Hadoop as described below.
+
 You can copy files to the namenode via
 ```
 docker cp <filename> namenode:<path on namenode>
@@ -168,37 +207,3 @@ You can access the Hadoop UI on
 
 [http://localhost:9870](http://localhost:9870)
 
-
-## 7. PySpark Notebook
-You can access JupyterLab on
-
-[http://localhost:8889](http://localhost:8889)
-
-**If you see a prompt asking you for a token or password type `lsdm`.**
-
-Here you can run any Python code you want.
-But most importantly you can use PySpark and connect to the HDFS.
-
-
-```python
-import pyspark
-from pyspark.sql import SparkSession
-
-spark = SparkSession.builder.master("local").appName("hdfs_test").getOrCreate()
-
-hello_world_rdd = spark.sparkContext.textFile("hdfs://namenode:9000/helloWorld/hello.txt")
-
-hello_world_rdd.collect()
-```
-
-### 7.1 Transfer Between Host and Notebook
-
-All files placed in the folder `./shared` located in the root directory of this repository on your host machine will directly appear in your jupyter lab environment.
-Vice versa, notebooks created in jupyter lab will directly be stored in the folder `./shared` on your host machine
-
-### 7.2 Misc
-
-The default user name in JupyterLab is `jovyan`.
-
-*""Jovyan is often a special term used to describe members of the Jupyter community. It is also used as the user ID in the Jupyter Docker stacks or referenced in conversations."*
-For more information see [here](https://jupyter-docker-stacks.readthedocs.io/en/latest/using/faq.html#who-is-jovyan).
