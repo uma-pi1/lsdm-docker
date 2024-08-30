@@ -4,6 +4,8 @@ RUN pip install --no-cache-dir 'apache-beam[gcp]' && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 
+RUN pip install --no-cache-dir mysql-connector-python
+
 USER root
 
 RUN apt-get update
