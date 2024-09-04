@@ -1,4 +1,4 @@
-FROM jupyter/pyspark-notebook:java-11.0.15
+FROM jupyter/pyspark-notebook:java-17.0.8.1
 
 RUN pip install --no-cache-dir 'apache-beam[gcp]' && \
     fix-permissions "${CONDA_DIR}" && \
