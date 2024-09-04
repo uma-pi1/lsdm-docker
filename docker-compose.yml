@@ -69,7 +69,7 @@ services:
 
   phpmyadmin:
     #image: phpmyadmin/phpmyadmin:latest
-    image: arm64v8/phpmyadmin:latest
+    image: phpmyadmin:latest
     container_name: phpmyadmin
     restart: always
     environment:
