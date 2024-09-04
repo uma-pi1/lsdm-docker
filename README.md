@@ -11,7 +11,7 @@ This environment is based on [this repository](https://github.com/big-data-europ
 
 ## Table of contents
 
-1. [Install Docker](#1-install-docker)
+1. [Docker](#1-docker)
 2. [Setup](#2-setup)
 3. [phpMyAdmin](#3-phpmyadmin)
 4. [MySQL](#4-mysql)
@@ -19,8 +19,9 @@ This environment is based on [this repository](https://github.com/big-data-europ
 6. [PySpark Notebook](#6-pyspark-notebook)
 7. [Hadoop](#7-hadoop)
 
-## 1. Install Docker
+## 1. Docker
 Before starting the local development environment, you need to install Docker (and docker-compose).
+If you have no prior experience with Docker and would like to receive some further information, note that there is some introductory material available on the [official Docker website](https://docs.docker.com/get-started/docker-overview/).
 
 ### Docker Installation - Windows
 To use Docker on Windows install the Docker Desktop.
