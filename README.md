@@ -134,7 +134,7 @@ You can access the database via the container name `mysqldb:3306` or via `your_i
 The connection via localhost does not work here, as the notebook is hosted in a separate container.
 
 ## 5. MongoDB
-You can connect to the database on `mongodb://root:root@mongodb:27017/
+You can connect to the database on `mongodb://root:root@mongodb:27017/`.
 
 ## 6. PySpark Notebook
 You can access JupyterLab on
@@ -160,10 +160,25 @@ hello_world_rdd.collect()
 
 ### 6.1 Transfer Between Host and Notebook
 
-All files placed in the folder `./shared` located in the root directory of this repository on your host machine will directly appear in your jupyter lab environment.
-Vice versa, notebooks created in jupyter lab will directly be stored in the folder `./shared` on your host machine
+All files placed in the folder `./shared` located in the root directory of this
+repository on your host machine will directly appear in your jupyter lab
+environment in the folder `shared` (because the root of jupyter lab's file tree
+is `/home/jovyan` and `shared` is placed there).
+Vice versa, notebooks created in jupyter lab in the directory `shared` will
+directly be stored in the folder `./shared` on your host machine.
 
-### 6.2 Misc
+### 6.2 Java Notebooks
+
+In every Java notebook, insert cell with the following content and execute:
+
+```
+%%jars
+/usr/local/spark/jars
+```
+
+This will load all required dependencies for Apache Spark.
+
+### 6.3 Misc
 
 The default user name in JupyterLab is `jovyan`.
 
