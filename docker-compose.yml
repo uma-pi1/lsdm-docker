@@ -97,7 +97,7 @@ services:
       - "8889:8888"
       - "4040-4049:4040-4049"
     volumes:
-      - ./shared:/home/jovyan
+      - ./shared:/home/jovyan/shared
     environment:
       - PASSWORD=lsdm
       - JUPYTER_TOKEN=lsdm

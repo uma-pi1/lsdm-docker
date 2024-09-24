@@ -14,4 +14,16 @@ RUN apt-get -y install vim
 RUN pip install --upgrade spylon-kernel
 RUN python -m spylon_kernel install
 
+
+# Install Java Kernel
+RUN chown -R jovyan /home/jovyan
 USER ${NB_UID}
+RUN cd /home/jovyan
+RUN wget https://github.com/padreati/rapaio-jupyter-kernel/releases/download/1.2.0/rapaio-jupyter-kernel-1.2.0.jar
+RUN java -jar rapaio-jupyter-kernel-1.2.0.jar -i -auto
+
+RUN sed -i '4i \
+    "--add-exports",\
+    "java.base/sun.nio.ch=ALL-UNNAMED",' /home/jovyan/.local/share/jupyter/kernels/rapaio-jupyter-kernel/kernel.json
+
+RUN mkdir /home/jovyan/shared
