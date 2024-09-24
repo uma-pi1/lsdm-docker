@@ -160,10 +160,21 @@ hello_world_rdd.collect()
 
 ### 6.1 Transfer Between Host and Notebook
 
-All files placed in the folder `./shared` located in the root directory of this repository on your host machine will directly appear in your jupyter lab environment.
-Vice versa, notebooks created in jupyter lab will directly be stored in the folder `./shared` on your host machine
+All files placed in the folder `./shared` located in the root directory of this repository on your host machine will directly appear in your jupyter lab environment in the folder `.shared`.
+Vice versa, notebooks created in jupyter lab in the directory `shared` will directly be stored in the folder `./shared` on your host machine
 
-### 6.2 Misc
+### 6.2 Java Notebooks
+
+In every Java notebook, insert cell with the following content and execute:
+
+```
+%%jars
+/usr/local/spark/jars
+```
+
+This will load all required dependencies for Apache Spark.
+
+### 6.3 Misc
 
 The default user name in JupyterLab is `jovyan`.
 
