@@ -1,4 +1,4 @@
-FROM jupyter/pyspark-notebook:java-17.0.8.1
+FROM quay.io/jupyter/pyspark-notebook:java-17.0.12
 
 RUN pip install --no-cache-dir 'apache-beam[gcp]' && \
     fix-permissions "${CONDA_DIR}" && \
@@ -13,12 +13,5 @@ RUN apt-get -y install vim
 
 RUN pip install --upgrade spylon-kernel
 RUN python -m spylon_kernel install
-
-
-RUN wget https://github.com/SpencerPark/IJava/releases/download/v1.3.0/ijava-1.3.0.zip
-RUN unzip ijava-1.3.0.zip -d ijava
-RUN cd ijava; python install.py --sys-prefix
-RUN cd ..
-
 
 USER ${NB_UID}
