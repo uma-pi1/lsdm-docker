@@ -167,9 +167,9 @@ is `/home/jovyan` and `shared` is placed there).
 Vice versa, notebooks created in jupyter lab in the directory `shared` will
 directly be stored in the folder `./shared` on your host machine.
 
-### 6.2 Java Notebooks
+### 6.2 Java Notebooks & Apache Spark
 
-In every Java notebook, insert cell with the following content and execute:
+In every Java notebook in which Apache Spark or its dependencies shall be used, insert cell with the following content and execute:
 
 ```
 %%jars
