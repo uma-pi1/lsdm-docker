@@ -14,6 +14,7 @@ RUN apt-get -y install vim
 RUN pip install --upgrade spylon-kernel
 RUN python -m spylon_kernel install
 
+RUN pip install pyarrow pandas
 
 # Install Java Kernel
 RUN chown -R jovyan /home/jovyan
