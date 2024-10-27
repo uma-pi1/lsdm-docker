@@ -4,6 +4,13 @@ USER root
 RUN apt-get update
 RUN apt-get -y install vim
 
+# revert to Spark 3
+WORKDIR /usr/local
+RUN wget https://dlcdn.apache.org/spark/spark-3.5.3/spark-3.5.3-bin-hadoop3.tgz
+RUN tar -xzf spark-3.5.3-bin-hadoop3.tgz
+RUN rm spark
+RUN ln -s spark-3.5.3-bin-hadoop3 spark
+
 # switch to user
 RUN chown -R jovyan /home/jovyan
 USER jovyan
@@ -35,6 +42,8 @@ WORKDIR /home/jovyan/local/spylon-kernel
 RUN git fetch origin pull/71/head:pull_71
 RUN git checkout pull_71
 RUN pip install -e .
+
+RUN python -m spylon_kernel install --user
 
 WORKDIR /home/jovyan/local
 RUN wget https://github.com/padreati/rapaio-jupyter-kernel/releases/download/1.2.0/rapaio-jupyter-kernel-1.2.0.jar
