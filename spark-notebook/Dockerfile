@@ -1,50 +1,33 @@
-FROM quay.io/jupyter/pyspark-notebook:java-17.0.12
+FROM quay.io/jupyter/pyspark-notebook@sha256:999213c55c952aa484128cd0297746703323d4fdfa70fbf66c0922937b3ad45b
 
+# equivalent to:
+#
+# FROM quay.io/jupyter/pyspark-notebook:spark-3.5.3
+#
+# on Oct 21, 2024
+
+# Install system-wide packages
 USER root
-RUN apt-get update
-RUN apt-get -y install vim
+RUN apt-get update -qq 
+RUN apt-get -y install -qq vim netcat-traditional
 
-# revert to Spark 3
-WORKDIR /usr/local
-RUN wget https://dlcdn.apache.org/spark/spark-3.5.3/spark-3.5.3-bin-hadoop3.tgz
-RUN tar -xzf spark-3.5.3-bin-hadoop3.tgz
-RUN rm spark
-RUN ln -s spark-3.5.3-bin-hadoop3 spark
-
-# switch to user
-RUN chown -R jovyan /home/jovyan
+# Install user packages
 USER jovyan
 WORKDIR /home/jovyan
 
-# install packages
-RUN pip install --no-cache-dir 'apache-beam[gcp]' && \
-    fix-permissions "${CONDA_DIR}" && \
-    fix-permissions "/home/${NB_USER}"
+RUN pip install -q --no-cache-dir \
+	'apache-beam[gcp]' \
+	mysql-connector-python \
+	pyarrow \
+	pandas \
+	pymongo spylon-kernel
 
-RUN pip install --no-cache-dir mysql-connector-python pymongo
+RUN fix-permissions "${CONDA_DIR}" && fix-permissions "/home/jovyan"
 
-RUN pip install --no-cache-dir pyarrow pandas
-
-# install kernels
-
-# RUN pip install --upgrade spylon
-# RUN pip install --upgrade spylon-kernel
-# Temporary fixes until spylon/spylon-kernel are updated
-RUN mkdir /home/jovyan/local
-WORKDIR /home/jovyan/local
-RUN git clone https://github.com/vericast/spylon.git spylon
-RUN git clone https://github.com/vericast/spylon-kernel.git spylon-kernel
-WORKDIR /home/jovyan/local/spylon
-RUN git fetch origin pull/57/head:pull_57
-RUN git checkout pull_57
-RUN pip install -e .
-WORKDIR /home/jovyan/local/spylon-kernel
-RUN git fetch origin pull/71/head:pull_71
-RUN git checkout pull_71
-RUN pip install -e .
-
+# Install Scala kernel
 RUN python -m spylon_kernel install --user
 
+# Install Java kernel
 WORKDIR /home/jovyan/local
 RUN wget https://github.com/padreati/rapaio-jupyter-kernel/releases/download/1.2.0/rapaio-jupyter-kernel-1.2.0.jar
 RUN java -jar rapaio-jupyter-kernel-1.2.0.jar -i -auto
@@ -53,9 +36,12 @@ RUN sed -i '4i \
     "--add-exports",\
     "java.base/sun.nio.ch=ALL-UNNAMED",' /home/jovyan/.local/share/jupyter/kernels/rapaio-jupyter-kernel/kernel.json
 
-# setup shared directory
+# Setup shared directory
 RUN mkdir /home/jovyan/shared
 
-# start Jupyterlab in home directory
+# Fix any problematic folder permissions and start Jupyterlab in home directory
+USER root
+RUN chown -R jovyan /home/jovyan
+USER jovyan
 WORKDIR /home/jovyan
 
