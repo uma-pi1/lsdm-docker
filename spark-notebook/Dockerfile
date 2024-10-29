@@ -15,21 +15,19 @@ RUN apt-get -y install -qq vim netcat-traditional
 USER jovyan
 WORKDIR /home/jovyan
 
-RUN pip install -q --no-cache-dir 'apache-beam[gcp]' && \
-    fix-permissions "${CONDA_DIR}" && \
-    fix-permissions "/home/${NB_USER}"
-
 RUN pip install -q --no-cache-dir \
+	'apache-beam[gcp]' \
 	mysql-connector-python \
 	pyarrow \
 	pandas \
 	pymongo spylon-kernel
 
+RUN fix-permissions "${CONDA_DIR}" && fix-permissions "/home/jovyan"
+
 # Install Scala kernel
 RUN python -m spylon_kernel install --user
 
 # Install Java kernel
-
 WORKDIR /home/jovyan/local
 RUN wget https://github.com/padreati/rapaio-jupyter-kernel/releases/download/1.2.0/rapaio-jupyter-kernel-1.2.0.jar
 RUN java -jar rapaio-jupyter-kernel-1.2.0.jar -i -auto
@@ -38,8 +36,8 @@ RUN sed -i '4i \
     "--add-exports",\
     "java.base/sun.nio.ch=ALL-UNNAMED",' /home/jovyan/.local/share/jupyter/kernels/rapaio-jupyter-kernel/kernel.json
 
-# setup shared directory
+# Setup shared directory
 RUN mkdir /home/jovyan/shared
 
-# start Jupyterlab in home directory
+# Start Jupyterlab in home directory
 WORKDIR /home/jovyan
