@@ -6,26 +6,31 @@ FROM quay.io/jupyter/pyspark-notebook@sha256:999213c55c952aa484128cd029774670332
 #
 # on Oct 21, 2024
 
-RUN pip install --no-cache-dir 'apache-beam[gcp]' && \
+# Install system-wide packages
+USER root
+RUN apt-get update -qq 
+RUN apt-get -y install -qq vim netcat-traditional
+
+# Install user packages
+USER jovyan
+WORKDIR /home/jovyan
+
+RUN pip install -q --no-cache-dir 'apache-beam[gcp]' && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 
-RUN pip install --no-cache-dir mysql-connector-python pymongo
+RUN pip install -q --no-cache-dir \
+	mysql-connector-python \
+	pyarrow \
+	pandas \
+	pymongo spylon-kernel
 
-USER root
+# Install Scala kernel
+RUN python -m spylon_kernel install --user
 
-RUN apt-get update
-RUN apt-get -y install vim
+# Install Java kernel
 
-RUN pip install --upgrade spylon-kernel
-RUN python -m spylon_kernel install
-
-RUN pip install pyarrow pandas
-
-# Install Java Kernel
-RUN chown -R jovyan /home/jovyan
-USER ${NB_UID}
-RUN cd /home/jovyan
+WORKDIR /home/jovyan/local
 RUN wget https://github.com/padreati/rapaio-jupyter-kernel/releases/download/1.2.0/rapaio-jupyter-kernel-1.2.0.jar
 RUN java -jar rapaio-jupyter-kernel-1.2.0.jar -i -auto
 
@@ -33,4 +38,8 @@ RUN sed -i '4i \
     "--add-exports",\
     "java.base/sun.nio.ch=ALL-UNNAMED",' /home/jovyan/.local/share/jupyter/kernels/rapaio-jupyter-kernel/kernel.json
 
+# setup shared directory
 RUN mkdir /home/jovyan/shared
+
+# start Jupyterlab in home directory
+WORKDIR /home/jovyan
