@@ -39,5 +39,9 @@ RUN sed -i '4i \
 # Setup shared directory
 RUN mkdir /home/jovyan/shared
 
-# Start Jupyterlab in home directory
+# Fix any problematic folder permissions and start Jupyterlab in home directory
+USER root
+RUN chown -R jovyan /home/jovyan
+USER jovyan
 WORKDIR /home/jovyan
+
