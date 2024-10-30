@@ -26,6 +26,7 @@ RUN fix-permissions "${CONDA_DIR}" && fix-permissions "/home/jovyan"
 
 # Install Scala kernel
 RUN python -m spylon_kernel install --user
+RUN sed -i 's/"display_name": *"spylon-kernel"/"display_name": "Scala (spylon)"/' /home/jovyan/.local/share/jupyter/kernels/spylon-kernel/kernel.json
 
 # Install Java kernel
 WORKDIR /home/jovyan/local
