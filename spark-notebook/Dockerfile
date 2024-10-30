@@ -29,12 +29,13 @@ RUN python -m spylon_kernel install --user
 
 # Install Java kernel
 WORKDIR /home/jovyan/local
-RUN wget https://github.com/padreati/rapaio-jupyter-kernel/releases/download/1.2.0/rapaio-jupyter-kernel-1.2.0.jar
-RUN java -jar rapaio-jupyter-kernel-1.2.0.jar -i -auto
+RUN wget https://github.com/padreati/rapaio-jupyter-kernel/releases/download/2.2.0/rapaio-jupyter-kernel-2.2.0.jar
+RUN java -jar rapaio-jupyter-kernel-2.2.0.jar -i -auto
 
 RUN sed -i '4i \
     "--add-exports",\
     "java.base/sun.nio.ch=ALL-UNNAMED",' /home/jovyan/.local/share/jupyter/kernels/rapaio-jupyter-kernel/kernel.json
+RUN sed -i 's/"RJK_CLASSPATH": *""/"RJK_CLASSPATH": "\/usr\/local\/spark\/jars\/*"/' /home/jovyan/.local/share/jupyter/kernels/rapaio-jupyter-kernel/kernel.json
 
 # Setup shared directory
 RUN mkdir /home/jovyan/shared
