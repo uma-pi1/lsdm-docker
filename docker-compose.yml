@@ -100,7 +100,7 @@ services:
       - PASSWORD=lsdm
       - JUPYTER_TOKEN=lsdm
       - JUPYTER_ALLOW_INSECURE_WRITES=true
-#      - IJAVA_CLASSPATH=/usr/local/spark/jars/*
+      - RJK_CLASSPATH=/usr/local/spark/jars/*
 
 
 # volumes:
